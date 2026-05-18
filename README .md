@@ -277,15 +277,14 @@ The formal document (v1.0) then introduced 10 errors while formalising the intui
 
 | Document | Description |
 |---|---|
-| [BTCS Research Paper (PDF)](docs/BTCS_MEXT_Research_Paper.pdf) | Full academic paper with all corrections, equations, seasonal analysis |
-| [Technical Correction Audit (HTML)](docs/BTCS_Correction_Audit_v2.html) | Interactive HTML version with KaTeX equations |
-| [MIT Maker Portfolio (JSX)](src/portfolio/BTCSPortfolio.jsx) | Interactive React presentation, 12 slides |
-
----
+| [thermal_model.py](thermal_model.py) | Core physics calculation module — run it directly |
+| [corrections_log.md](corrections_log.md) | All 10 corrections fully documented |
+| [thermal_budget.md](thermal_budget.md) | 15-step thermal budget walkthrough |
+| [ETPT Framework](https://tulasikrishna-simulations.github.io/etpt-portfolio) | The parent theory behind BTCS |
 
 ## License
 
-MIT — see [LICENSE](LICENSE)
+GPL-3.0 — see [LICENSE](LICENSE)
 
 ---
 
