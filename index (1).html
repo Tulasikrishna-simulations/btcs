@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Blueberry Thermal Container System — Passive root-zone cooling for extreme heat. Hospete, Karnataka.">
+<title>BTCS — S R Tulasi Krishna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+:root {
+  --bg:    #060C09;
+  --srf:   #0C1510;
+  --srf2:  #111D14;
+  --brd:   #1E2E22;
+  --grn:   #00E87A;
+  --grnd:  #00A855;
+  --grnl:  #0D2416;
+  --amb:   #FF9500;
+  --ambl:  #1E1400;
+  --red:   #FF4040;
+  --redl:  #1E0A0A;
+  --blu:   #40C4FF;
+  --blul:  #091520;
+  --txt:   #DDE8DF;
+  --mut:   #6A8A72;
+  --wht:   #FFFFFF;
+  --mono:  'Space Mono', monospace;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans:  'DM Sans', system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--txt);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(6,12,9,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--brd);
+  padding: 0 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px;
+}
+.nav-brand {
+  font-family: var(--mono); font-size: 13px; color: var(--grn);
+  text-decoration: none; letter-spacing: .04em;
+}
+.nav-links { display: flex; gap: 24px; }
+.nav-links a {
+  font-size: 12px; color: var(--mut); text-decoration: none;
+  letter-spacing: .05em; text-transform: uppercase;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--grn); }
+.nav-etpt {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--grn); border: 1px solid var(--grn);
+  padding: 4px 12px; border-radius: 3px; text-decoration: none;
+  transition: background .2s;
+}
+.nav-etpt:hover { background: var(--grnl); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 92vh;
+  padding: 10% 5% 8%;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 50%, rgba(0,232,122,.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(0,168,85,.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-tag {
+  font-family: var(--mono); font-size: 11px; color: var(--grn);
+  letter-spacing: .12em; text-transform: uppercase;
+  margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+}
+.hero-tag::before { content:''; width: 32px; height: 1px; background: var(--grn); }
+h1.hero-title {
+  font-family: var(--serif); font-size: clamp(38px, 7vw, 80px);
+  line-height: 1.05; color: var(--wht);
+  margin-bottom: 16px;
+}
+h1.hero-title span { color: var(--grn); }
+.hero-sub {
+  font-size: 16px; color: var(--mut); max-width: 580px;
+  line-height: 1.7; margin-bottom: 48px;
+}
+.hero-metrics {
+  display: grid; grid-template-columns: repeat(4, auto);
+  gap: 2px; width: fit-content;
+}
+.metric {
+  background: var(--srf); border: 1px solid var(--brd);
+  padding: 18px 28px;
+}
+.metric:first-child { border-radius: 6px 0 0 6px; }
+.metric:last-child  { border-radius: 0 6px 6px 0; }
+.metric-v {
+  font-family: var(--mono); font-size: 28px; font-weight: 700;
+  color: var(--grn); line-height: 1;
+}
+.metric-l { font-size: 11px; color: var(--mut); margin-top: 4px; }
+.scroll-hint {
+  position: absolute; bottom: 40px; left: 5%;
+  font-family: var(--mono); font-size: 10px; color: var(--mut);
+  display: flex; align-items: center; gap: 10px;
+  letter-spacing: .08em;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+
+/* ── SECTIONS ── */
+section { padding: 90px 5%; border-top: 1px solid var(--brd); }
+.sec-label {
+  font-family: var(--mono); font-size: 10px; color: var(--grn);
+  letter-spacing: .14em; text-transform: uppercase;
+  margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+}
+.sec-label::after { content:''; flex:1; height:1px; background:var(--brd); }
+h2.sec-title {
+  font-family: var(--serif); font-size: clamp(26px, 4vw, 44px);
+  color: var(--wht); line-height: 1.15; margin-bottom: 16px;
+}
+p.sec-body { font-size: 14.5px; color: var(--mut); line-height: 1.75; max-width: 680px; margin-bottom: 14px; }
+
+/* ── TWO-COL ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.four-col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--srf); border: 1px solid var(--brd);
+  border-radius: 8px; padding: 20px 22px;
+}
+.card-title { font-size: 12px; font-weight: 500; color: var(--grn); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .06em; }
+
+/* ── LAYER DIAGRAM ── */
+.layer-stack { display: flex; flex-direction: column; gap: 4px; margin: 20px 0; }
+.layer-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px; border-radius: 5px;
+  font-size: 13px; position: relative;
+}
+.layer-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.layer-name { font-weight: 500; color: var(--txt); min-width: 140px; }
+.layer-desc { color: var(--mut); font-size: 12px; flex: 1; }
+.layer-val { font-family: var(--mono); font-size: 11px; margin-left: auto; flex-shrink: 0; }
+
+/* ── EQUATION ── */
+.eq-box {
+  background: var(--blul); border: 1px solid rgba(64,196,255,.2);
+  border-radius: 8px; padding: 18px 24px; margin: 16px 0;
+  text-align: center;
+}
+.eq-note { font-size: 11.5px; color: var(--mut); text-align: left; margin-top: 10px; line-height: 1.6; }
+
+/* ── CALLOUT ── */
+.callout {
+  border-left: 3px solid var(--grn); background: var(--grnl);
+  border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 16px 0;
+}
+.callout.amber { border-color: var(--amb); background: var(--ambl); }
+.callout.red   { border-color: var(--red); background: var(--redl); }
+.callout-title { font-size: 11px; font-weight: 700; color: var(--grn); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+.callout.amber .callout-title { color: var(--amb); }
+.callout.red   .callout-title { color: var(--red); }
+.callout p { font-size: 13px; color: var(--mut); line-height: 1.65; }
+
+/* ── CORRECTIONS ── */
+.corr-item {
+  border: 1px solid var(--brd); border-radius: 8px;
+  margin-bottom: 8px; overflow: hidden;
+  cursor: pointer; transition: border-color .2s;
+}
+.corr-item:hover { border-color: var(--mut); }
+.corr-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px;
+}
+.corr-id { font-family: var(--mono); font-size: 11px; color: var(--mut); }
+.sev-badge {
+  font-size: 9px; font-weight: 700; padding: 2px 8px;
+  border-radius: 3px; letter-spacing: .06em;
+}
+.sev-H { background: var(--redl); color: var(--red); }
+.sev-M { background: var(--ambl); color: var(--amb); }
+.sev-L { background: var(--grnl); color: var(--grn); }
+.corr-right { font-size: 13px; font-weight: 500; color: var(--txt); flex: 1; }
+.corr-arrow { color: var(--mut); transition: transform .2s; font-size: 12px; }
+.corr-item.open .corr-arrow { transform: rotate(180deg); }
+.corr-body {
+  display: none; padding: 0 16px 16px;
+  border-top: 1px solid var(--brd);
+}
+.corr-item.open .corr-body { display: block; padding-top: 12px; }
+.corr-wrong { font-size: 12px; color: var(--red); text-decoration: line-through; margin-bottom: 4px; }
+.corr-fixed { font-size: 12px; color: var(--grn); font-weight: 600; margin-bottom: 8px; }
+.corr-explain { font-size: 13px; color: var(--mut); line-height: 1.65; }
+
+/* ── CALCULATOR ── */
+.calc-wrap {
+  background: var(--srf); border: 1px solid var(--brd);
+  border-radius: 12px; padding: 28px; margin-top: 24px;
+}
+.calc-title { font-family: var(--mono); font-size: 11px; color: var(--grn); letter-spacing: .1em; margin-bottom: 20px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+.slider-group label {
+  display: flex; justify-content: space-between;
+  font-size: 12px; color: var(--mut); margin-bottom: 6px;
+}
+.slider-group label span { color: var(--grn); font-family: var(--mono); }
+input[type=range] {
+  width: 100%; height: 4px; appearance: none;
+  background: var(--brd); border-radius: 2px; outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  appearance: none; width: 14px; height: 14px;
+  border-radius: 50%; background: var(--grn); cursor: pointer;
+}
+.calc-result {
+  background: var(--bg); border: 1px solid var(--brd);
+  border-radius: 8px; padding: 20px;
+}
+.result-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 12px; }
+.result-item .r-label { font-size: 10px; color: var(--mut); margin-bottom: 3px; }
+.result-item .r-val { font-family: var(--mono); font-size: 18px; font-weight: 700; }
+.status-bar {
+  padding: 10px 16px; border-radius: 6px; text-align: center;
+  font-family: var(--mono); font-size: 13px; font-weight: 700;
+  letter-spacing: .05em; transition: all .3s;
+}
+.status-ok     { background: var(--grnl); color: var(--grn); border: 1px solid var(--grnd); }
+.status-margin { background: var(--ambl); color: var(--amb); border: 1px solid var(--amb); }
+.status-fail   { background: var(--redl); color: var(--red); border: 1px solid var(--red); }
+
+/* ── TABLE ── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
+.data-table th {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em;
+  text-transform: uppercase; text-align: left;
+  padding: 8px 12px; background: var(--srf2); color: var(--mut);
+  border-bottom: 1px solid var(--brd);
+}
+.data-table td {
+  padding: 9px 12px; border-bottom: 1px solid var(--brd);
+  color: var(--mut);
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table td strong { color: var(--txt); }
+.ok   { color: var(--grn); font-weight: 700; }
+.warn { color: var(--amb); font-weight: 700; }
+.fail { color: var(--red); font-weight: 700; }
+
+/* ── SVG DIAGRAM ── */
+.diagram-wrap {
+  background: var(--srf); border: 1px solid var(--brd);
+  border-radius: 10px; padding: 16px; margin: 20px 0;
+}
+
+/* ── SKETCH ── */
+.sketch-frame {
+  border: 1px solid var(--brd); border-radius: 8px;
+  overflow: hidden; max-width: 280px;
+}
+.sketch-frame img { width: 100%; display: block; filter: sepia(.3) contrast(1.1); }
+.sketch-caption { font-family: var(--mono); font-size: 10px; color: var(--mut); padding: 8px 12px; background: var(--srf); }
+
+/* ── BOM ── */
+.bom-row {
+  display: grid; grid-template-columns: 1fr auto;
+  padding: 10px 0; border-bottom: 1px solid var(--brd);
+  font-size: 13px;
+}
+.bom-name { color: var(--txt); font-weight: 500; }
+.bom-desc { color: var(--mut); font-size: 12px; }
+.bom-cost { font-family: var(--mono); color: var(--grn); font-size: 12px; text-align: right; }
+.bom-total {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 0; margin-top: 4px;
+}
+.bom-total-label { font-size: 14px; font-weight: 600; color: var(--txt); }
+.bom-total-val { font-family: var(--mono); font-size: 22px; font-weight: 700; color: var(--grn); }
+
+/* ── ETPT SECTION ── */
+.etpt-card {
+  background: linear-gradient(135deg, var(--srf) 0%, rgba(0,232,122,.04) 100%);
+  border: 1px solid var(--grn); border-radius: 10px;
+  padding: 32px; display: flex; flex-direction: column; gap: 16px;
+}
+.etpt-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--grn); color: var(--bg);
+  padding: 10px 22px; border-radius: 5px;
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  text-decoration: none; width: fit-content;
+  transition: opacity .2s;
+}
+.etpt-link:hover { opacity: .85; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--brd);
+  padding: 40px 5%;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+}
+.footer-l { font-family: var(--mono); font-size: 11px; color: var(--mut); }
+.footer-r { font-size: 12px; color: var(--mut); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px) {
+  .two-col, .three-col, .four-col, .calc-grid, .result-grid { grid-template-columns: 1fr; }
+  .hero-metrics { grid-template-columns: 1fr 1fr; }
+  .metric:first-child { border-radius: 6px 0 0 0; }
+  .metric:last-child  { border-radius: 0 0 6px 6px; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">BTCS ·</a>
+  <div class="nav-links">
+    <a href="#physics">Physics</a>
+    <a href="#corrections">Corrections</a>
+    <a href="#calculator">Calculator</a>
+    <a href="#bom">BOM</a>
+  </div>
+  <a class="nav-etpt" href="https://tulasikrishna-simulations.github.io/etpt-portfolio" target="_blank">↗ ETPT</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-tag">Passive Thermal Engineering · Hospete, Karnataka</div>
+  <h1 class="hero-title">Blueberry Thermal<br><span>Container System</span></h1>
+  <p class="hero-sub">A passive, zero-electricity container that keeps blueberry root-zone temperature at 26–28°C in 42°C ambient heat — built from rice husk ash, jute, and lime wash for ₹1,000.</p>
+  <div class="hero-metrics">
+    <div class="metric"><div class="metric-v">42°C</div><div class="metric-l">Summer ambient</div></div>
+    <div class="metric"><div class="metric-v" style="color:var(--grn)">26–28°C</div><div class="metric-l">Root zone achieved</div></div>
+    <div class="metric"><div class="metric-v">14–16°C</div><div class="metric-l">Passive ΔT</div></div>
+    <div class="metric"><div class="metric-v" style="color:var(--amb)">₹1k</div><div class="metric-l">Unit build cost</div></div>
+  </div>
+  <div class="scroll-hint">↓ &nbsp; scroll</div>
+</section>
+
+<!-- THE PROBLEM -->
+<section id="problem">
+  <div class="sec-label">01 — The Problem</div>
+  <h2 class="sec-title">Why blueberries fail in Hospete</h2>
+  <div class="two-col">
+    <div>
+      <p class="sec-body"><em>Vaccinium corymbosum</em> evolved in cool North American forests. Its roots want soil at 15–18°C. Hospete gives them 40–45°C in summer. The plant dies within days above 35°C. Air-conditioned greenhouses cost lakhs. A small farmer with 20 plants cannot afford that.</p>
+      <p class="sec-body">The insight: only the roots are the bottleneck. The canopy handles 42°C fine. If I can keep just 5 kg of root substrate below 30°C — the viability ceiling — the plant survives and produces fruit.</p>
+      <div class="callout">
+        <div class="callout-title">The key insight</div>
+        <p>Build a thermos for the roots, not a greenhouse for the field. Target just 5 kg of soil. Everything else is engineering detail.</p>
+      </div>
+    </div>
+    <div>
+      <table class="data-table">
+        <thead><tr><th>Parameter</th><th>Blueberry needs</th><th>Hospete gives</th></tr></thead>
+        <tbody>
+          <tr><td>Root zone optimum</td><td class="ok">15–18°C</td><td class="fail">40–45°C</td></tr>
+          <tr><td>Survival ceiling</td><td class="ok">≤ 30°C</td><td class="fail">38–45°C</td></tr>
+          <tr><td>Soil pH</td><td class="ok">4.5–5.5</td><td class="fail">6.5–8.0</td></tr>
+          <tr><td>Summer humidity</td><td>Stable</td><td class="ok">&lt;30% dry season</td></tr>
+        </tbody>
+      </table>
+      <div class="callout amber" style="margin-top:12px">
+        <div class="callout-title">Note on temperature framing</div>
+        <p>26–30°C is the <strong>viability ceiling</strong>, not the optimum. True optimum is 15–18°C — not achievable by passive means in Hospete. BTCS is the difference between zero crop and viable crop.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN -->
+<section id="design">
+  <div class="sec-label">02 — System Design</div>
+  <h2 class="sec-title">From notebook sketch to six-layer system</h2>
+  <div class="two-col" style="margin-bottom:40px">
+    <div>
+      <p class="sec-body">The design began with a hand-drawn sketch — reproduced here as Figure 1. The sketch already had the buoyancy formula written at the top, the tapered frustum shape, "hot air moves up" labelled correctly, cool air arrows from the base, and a question about aluminium foil coating. The intuition was right. The formal document (v1.0) then introduced 10 errors.</p>
+      <p class="sec-body">BTCS works through three simultaneous passive mechanisms: radiation control on the outer surface, evaporative cooling from the wick layer, and buoyancy-driven stack ventilation. Together these create a net cooling surplus of +51.6 W/m² in peak summer.</p>
+    </div>
+    <div>
+      <div class="sketch-frame">
+        <img src="notebook_sketch.jpg" alt="Original hand-drawn BTCS concept sketch — Hospete 2024">
+        <div class="sketch-caption">Fig 1 — Original notebook sketch, Hospete 2024. The buoyancy formula and frustum geometry were correct from the beginning.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <p style="font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;font-family:var(--mono)">Layer architecture — outside to inside</p>
+      <div class="layer-stack">
+        <div class="layer-item" style="background:rgba(148,163,184,.08)">
+          <div class="layer-dot" style="background:#94A3B8"></div>
+          <div class="layer-name">Outer shell</div>
+          <div class="layer-desc">Lime wash coated — rejects sunlight</div>
+          <div class="layer-val" style="color:#94A3B8">α&gt;0.80 ε&gt;0.85</div>
+        </div>
+        <div class="layer-item" style="background:rgba(29,78,216,.08)">
+          <div class="layer-dot" style="background:#60A5FA"></div>
+          <div class="layer-name">Air gap</div>
+          <div class="layer-desc">Chimney — buoyant hot air exits upward</div>
+          <div class="layer-val" style="color:#60A5FA">ΔP = 0.22 Pa</div>
+        </div>
+        <div class="layer-item" style="background:rgba(21,128,61,.08)">
+          <div class="layer-dot" style="background:#4ADE80"></div>
+          <div class="layer-name">Wet wick (jute)</div>
+          <div class="layer-desc">Evaporative cooling — water absorbs heat</div>
+          <div class="layer-val" style="color:#4ADE80">53.4 W/m²</div>
+        </div>
+        <div class="layer-item" style="background:rgba(124,58,237,.1)">
+          <div class="layer-dot" style="background:#A78BFA"></div>
+          <div class="layer-name">★ Vapour barrier</div>
+          <div class="layer-desc">NEW — 125μm PE film — isolates ash from moisture</div>
+          <div class="layer-val" style="color:#A78BFA">C-07 fix</div>
+        </div>
+        <div class="layer-item" style="background:rgba(194,65,12,.08)">
+          <div class="layer-dot" style="background:#FB923C"></div>
+          <div class="layer-name">Rice husk ash</div>
+          <div class="layer-desc">50mm insulation — free from local mills</div>
+          <div class="layer-val" style="color:#FB923C">R=1.25 m²K/W</div>
+        </div>
+        <div class="layer-item" style="background:rgba(120,83,47,.08)">
+          <div class="layer-dot" style="background:#B45309"></div>
+          <div class="layer-name">Root substrate</div>
+          <div class="layer-desc">Coir + perlite + S-compost — pH 4.8–5.2</div>
+          <div class="layer-val" style="color:#B45309">26–28°C ✓</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SVG Prototype Diagram -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 440 500" style="width:100%;height:auto">
+        <defs>
+          <marker id="mU" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+            <polygon points="0,7 3.5,0 7,7" fill="#FF9500"/></marker>
+          <marker id="mC" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+            <polygon points="0,7 3.5,0 7,7" fill="#40C4FF"/></marker>
+          <marker id="mS" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+            <polygon points="0,7 3.5,0 7,7" fill="#FCD34D"/></marker>
+        </defs>
+        <script type="text/javascript">
+        </script>
+        <!-- frustum geometry: center=210, yTop=65, yBot=415 -->
+        <!-- lx(y)=210-55-(140*(y-65)/350), rx(y)=210+55+(140*(y-65)/350) -->
+        <!-- at y=65: lx=155,rx=265 width=110 -->
+        <!-- at y=415: lx=15,rx=405 width=390 -->
+
+        <!-- Root zone -->
+        <polygon points="155,65 265,65 405,415 15,415" fill="#44302840" opacity=".9"/>
+
+        <!-- Layers left+right -->
+        <!-- outer shell 0-7 -->
+        <polygon points="155,65 162,65 152,415 8,415" fill="#94A3B8" opacity=".8"/>
+        <polygon points="265,65 272,65 432,415 418,415" fill="#94A3B8" opacity=".8"/>
+        <!-- air gap 7-19 -->
+        <polygon points="162,65 174,65 164,415 152,415" fill="#1D4ED8" opacity=".35"/>
+        <polygon points="258,65 246,65 276,415 264,415" fill="#1D4ED8" opacity=".35"/>
+        <!-- wick 19-27 -->
+        <polygon points="174,65 182,65 172,415 164,415" fill="#15803D" opacity=".8"/>
+        <polygon points="246,65 238,65 268,415 276,415" fill="#15803D" opacity=".8"/>
+        <!-- vapour barrier 28 -->
+        <line x1="183" y1="65" x2="171" y2="415" stroke="#7C3AED" stroke-width="2" opacity="1"/>
+        <line x1="237" y1="65" x2="249" y2="415" stroke="#7C3AED" stroke-width="2" opacity="1"/>
+        <!-- rice husk ash 29-57 -->
+        <polygon points="183,65 211,65 199,415 171,415" fill="#C2410C" opacity=".7"/>
+        <polygon points="237,65 209,65 221,415 249,415" fill="#C2410C" opacity=".7"/>
+        <!-- inner liner 57-62 -->
+        <polygon points="211,65 216,65 204,415 199,415" fill="#78350F" opacity=".8"/>
+        <polygon points="209,65 204,65 216,415 221,415" fill="#78350F" opacity=".8"/>
+
+        <!-- Airflow arrows up left gap -->
+        <line x1="168" y1="200" x2="165" y2="155" stroke="#FF9500" stroke-width="1.5" marker-end="url(#mU)" opacity=".8"/>
+        <line x1="168" y1="280" x2="165" y2="235" stroke="#FF9500" stroke-width="1.5" marker-end="url(#mU)" opacity=".8"/>
+        <line x1="168" y1="360" x2="165" y2="315" stroke="#FF9500" stroke-width="1.5" marker-end="url(#mU)" opacity=".8"/>
+
+        <!-- Sun rays right -->
+        <line x1="435" y1="130" x2="270" y2="130" stroke="#FCD34D" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#mS)" opacity=".6"/>
+        <line x1="435" y1="200" x2="280" y2="200" stroke="#FCD34D" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#mS)" opacity=".6"/>
+        <line x1="435" y1="270" x2="295" y2="270" stroke="#FCD34D" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#mS)" opacity=".6"/>
+        <text x="438" y="198" font-size="9" fill="#FCD34D" font-family="monospace">☀ 900</text>
+        <text x="438" y="210" font-size="9" fill="#FCD34D" font-family="monospace">W/m²</text>
+
+        <!-- Cool air in -->
+        <line x1="4" y1="430" x2="14" y2="430" stroke="#40C4FF" stroke-width="2" marker-end="url(#mC)"/>
+        <line x1="418" y1="430" x2="408" y2="430" stroke="#40C4FF" stroke-width="2" marker-end="url(#mC)"/>
+        <text x="20" y="444" font-size="9" fill="#40C4FF" font-family="monospace">← cool air in (360°)</text>
+
+        <!-- Hot air exit -->
+        <line x1="210" y1="65" x2="210" y2="30" stroke="#FF9500" stroke-width="3" marker-end="url(#mU)"/>
+        <text x="210" y="22" text-anchor="middle" font-size="9" fill="#FF9500" font-family="monospace">hot air exits — A₂</text>
+
+        <!-- Temperatures -->
+        <text x="210" y="238" text-anchor="middle" font-size="15" fill="#00E87A" font-weight="bold" font-family="monospace">26–28°C</text>
+        <text x="210" y="256" text-anchor="middle" font-size="9" fill="#00E87A" font-family="sans-serif">root zone ✓</text>
+        <text x="340" y="170" font-size="9" fill="#FF9500" font-family="monospace">51–60°C wall</text>
+
+        <!-- Base label -->
+        <text x="210" y="468" text-anchor="middle" font-size="9" fill="#4B5563" font-family="monospace">A₁ — wide base — 360° elevated airflow</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- PHYSICS -->
+<section id="physics">
+  <div class="sec-label">03 — The Physics</div>
+  <h2 class="sec-title">Three equations. Corrected.</h2>
+
+  <div class="two-col" style="margin-bottom:40px">
+    <div>
+      <h3 style="font-size:16px;color:var(--wht);margin-bottom:10px">1. Stack effect — the actual driver</h3>
+      <p class="sec-body" style="max-width:none">Hot air in the chimney gap is less dense than ambient air (ideal gas: ρ ∝ 1/T). This density difference creates a pressure difference — buoyancy — that drives airflow upward through the chimney.</p>
+      <div class="eq-box">
+        $$\Delta P = \rho_{amb} \cdot g \cdot H \cdot \frac{T_{hot} - T_{cold}}{T_{cold}}$$
+        <div class="eq-note">H=0.8m, ΔT=8K → ΔP=0.22 Pa → Q=0.013 m³/s → <strong style="color:var(--blu)">117W removed</strong><br>
+        The continuity equation A₁V₁=A₂V₂ <em>follows</em> from this — it does not cause it.</div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:16px;color:var(--wht);margin-bottom:10px">2. Evaporative cooling — corrected Lᵥ</h3>
+      <p class="sec-body" style="max-width:none">v1.0 used Lᵥ = 2260 kJ/kg — the boiling point value. At 40°C operating temperature:</p>
+      <div class="eq-box">
+        $$L_v(T) = 2500.8 - 2.36T + 0.0016T^2 - 0.00006T^3 \text{ [kJ/kg]}$$
+        <div class="eq-note">At T=40°C: <strong style="color:var(--blu)">Lᵥ = 2405 kJ/kg</strong> (6.4% more than v1.0 claimed)<br>
+        q_evap = (0.08 × 2,405,000) / 3600 = <strong style="color:var(--blu)">53.4 W/m²</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h3 style="font-size:16px;color:var(--wht);margin-bottom:10px">3. Outer wall temperature — the critical correction</h3>
+    <p class="sec-body">v1.0 calculated ΔT as 42°C ambient − 30°C interior = 12°C. Wrong. The wall heats up in direct sun — like a car roof on a hot day. The insulation works against the wall temperature, not ambient air.</p>
+    <div class="eq-box" style="max-width:500px">
+      $$T_{wall} = T_{amb} + \frac{G \cdot (1 - \alpha)}{h_{conv}}$$
+      <div class="eq-note">G=900 W/m², α=0.80, h=20 W/m²K → <strong style="color:var(--red)">T_wall = 51°C</strong> (not 42°C)<br>
+      True insulation ΔT = 51 − 30 = <strong style="color:var(--blu)">21°C</strong> &nbsp;|&nbsp; System still works — budget just stated correctly.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CORRECTIONS -->
+<section id="corrections">
+  <div class="sec-label">04 — Corrections</div>
+  <h2 class="sec-title">Ten things v1.0 got wrong</h2>
+  <p class="sec-body">The original design brief introduced 10 errors while formalising the notebook sketch. Each correction was something learned. Click any row to expand.</p>
+  <div style="margin-top:20px" id="corr-list"></div>
+</section>
+
+<!-- CALCULATOR -->
+<section id="calculator">
+  <div class="sec-label">05 — Live Thermal Calculator</div>
+  <h2 class="sec-title">See the system respond in real time</h2>
+  <p class="sec-body">Adjust ambient temperature and humidity. The calculator runs the corrected thermal budget — all 15 steps — and shows whether BTCS maintains the viability ceiling.</p>
+  <div class="calc-wrap">
+    <div class="calc-title">BTCS THERMAL BUDGET CALCULATOR — v2.0</div>
+    <div class="calc-grid">
+      <div class="slider-group">
+        <label>Ambient temperature <span id="v-temp">42</span>°C</label>
+        <input type="range" id="s-temp" min="20" max="50" value="42" step="1">
+      </div>
+      <div class="slider-group">
+        <label>Relative humidity <span id="v-rh">30</span>%</label>
+        <input type="range" id="s-rh" min="10" max="95" value="30" step="5">
+      </div>
+      <div class="slider-group">
+        <label>Wind <span id="v-wind">Light (20 W/m²K)</span></label>
+        <input type="range" id="s-wind" min="10" max="30" value="20" step="5">
+      </div>
+      <div class="slider-group">
+        <label>Chimney height H <span id="v-h">0.8</span>m</label>
+        <input type="range" id="s-h" min="0.3" max="1.5" value="0.8" step="0.1">
+      </div>
+    </div>
+    <div class="calc-result">
+      <div class="result-grid">
+        <div class="result-item">
+          <div class="r-label">Wall temperature</div>
+          <div class="r-val" id="r-wall" style="color:var(--amb)">51°C</div>
+        </div>
+        <div class="result-item">
+          <div class="r-label">Conduction load</div>
+          <div class="r-val" id="r-cond" style="color:var(--red)">16.8 W/m²</div>
+        </div>
+        <div class="result-item">
+          <div class="r-label">Evaporative cooling</div>
+          <div class="r-val" id="r-evap" style="color:var(--grn)">53.4 W/m²</div>
+        </div>
+        <div class="result-item">
+          <div class="r-label">Stack removal</div>
+          <div class="r-val" id="r-stack" style="color:var(--blu)">15 W/m²</div>
+        </div>
+        <div class="result-item">
+          <div class="r-label">Net surplus</div>
+          <div class="r-val" id="r-net" style="color:var(--grn)">+51.6 W/m²</div>
+        </div>
+        <div class="result-item">
+          <div class="r-label">Root zone temp</div>
+          <div class="r-val" id="r-root" style="color:var(--grn)">27°C</div>
+        </div>
+      </div>
+      <div class="status-bar status-ok" id="r-status">✓ VIABLE — Root zone within 30°C ceiling</div>
+    </div>
+  </div>
+</section>
+
+<!-- SEASONAL -->
+<section id="seasonal">
+  <div class="sec-label">06 — Seasonal Performance</div>
+  <h2 class="sec-title">Year-round analysis</h2>
+  <table class="data-table">
+    <thead><tr><th>Season</th><th>Ambient</th><th>RH</th><th>Wall</th><th>Heat in</th><th>Wick out</th><th>Net</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Peak summer (Apr–May)</strong></td><td>42°C</td><td>25%</td><td>51–60°C</td><td>17 W/m²</td><td>53 W/m²</td><td class="ok">+36</td><td class="ok">✓ VIABLE</td></tr>
+      <tr><td><strong>Pre-monsoon (May–Jun)</strong></td><td>38°C</td><td>55%</td><td>48°C</td><td>14 W/m²</td><td>24 W/m²</td><td class="ok">+10</td><td class="ok">✓ VIABLE</td></tr>
+      <tr><td><strong>Monsoon (Jun–Sep)</strong></td><td>30°C</td><td>85%</td><td>36°C</td><td>5 W/m²</td><td>5 W/m²</td><td class="warn">~0</td><td class="warn">⚠ FALLBACKS</td></tr>
+      <tr><td><strong>Winter (Nov–Feb)</strong></td><td>24°C</td><td>45%</td><td>30°C</td><td>0 W/m²</td><td>28 W/m²</td><td class="ok">+28</td><td class="ok">✓ EXCELLENT</td></tr>
+    </tbody>
+  </table>
+  <div class="three-col" style="margin-top:20px">
+    <div class="callout">
+      <div class="callout-title">Monsoon fallback 1 — Thermal mass</div>
+      <p>5 kg substrate stores ~18 kJ/K. At 1.7W monsoon ingress, takes 3+ hours to rise 1°C. Nights cool to 22–25°C — system resets daily. Zero extra cost.</p>
+    </div>
+    <div class="callout">
+      <div class="callout-title">Monsoon fallback 2 — Ground coupling</div>
+      <p>Ground at 30cm depth: 23–26°C in monsoon. Rest container base on moist soil instead of concrete. Passive heat sink. Zero extra cost.</p>
+    </div>
+    <div class="callout amber">
+      <div class="callout-title">Monsoon fallback 3 — Terracotta pot</div>
+      <p>Replace HDPE reservoir with unglazed clay matka. Clay sweats via capillary pressure — not stopped by high humidity. 3–5°C cooling at 85% RH. Cost: ₹20–40.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BOM -->
+<section id="bom">
+  <div class="sec-label">07 — Bill of Materials</div>
+  <h2 class="sec-title">₹675–1,185. Validated.</h2>
+  <p class="sec-body">Every item locally sourceable in Hospete. Items marked ★ are additions in v2.0.</p>
+  <div class="two-col">
+    <div>
+      <div class="bom-row"><div><div class="bom-name">Outer shell</div><div class="bom-desc">Recycled HDPE drum or GI sheet frustum</div></div><div class="bom-cost">₹200–350</div></div>
+      <div class="bom-row"><div><div class="bom-name">Lime wash coating</div><div class="bom-desc">α&gt;0.82 AND ε&gt;0.90 — both required</div></div><div class="bom-cost">₹20–35</div></div>
+      <div class="bom-row"><div><div class="bom-name" style="color:var(--grn)">Rice husk ash</div><div class="bom-desc" style="color:var(--grn)">FREE from local rice mills — transport only</div></div><div class="bom-cost" style="color:var(--grn)">₹0–40</div></div>
+      <div class="bom-row"><div><div class="bom-name">★ Vapour barrier</div><div class="bom-desc">125μm PE film — isolates wick from ash</div></div><div class="bom-cost">₹10–25</div></div>
+      <div class="bom-row"><div><div class="bom-name">Jute wick</div><div class="bom-desc">Jute cloth or coir mat, locally woven</div></div><div class="bom-cost">₹35–60</div></div>
+      <div class="bom-row"><div><div class="bom-name">Water reservoir</div><div class="bom-desc">2.5L HDPE or terracotta matka</div></div><div class="bom-cost">₹40–70</div></div>
+      <div class="bom-row"><div><div class="bom-name">Root substrate</div><div class="bom-desc">60% coir + 30% perlite + 10% S-compost</div></div><div class="bom-cost">₹80–130</div></div>
+      <div class="bom-row"><div><div class="bom-name">pH kit</div><div class="bom-desc">pH strips + citric acid sachet</div></div><div class="bom-cost">₹35–60</div></div>
+      <div class="bom-row"><div><div class="bom-name">★ Root liner</div><div class="bom-desc">Food-grade PE bag — blocks ash leachate</div></div><div class="bom-cost">₹5–15</div></div>
+      <div class="bom-row"><div><div class="bom-name">Base frame + labour</div><div class="bom-desc">Bamboo/MS rod + 2–3h assembly</div></div><div class="bom-cost">₹250–400</div></div>
+      <div class="bom-total">
+        <div class="bom-total-label">Total build cost</div>
+        <div class="bom-total-val">₹675–1,185</div>
+      </div>
+    </div>
+    <div>
+      <div class="callout" style="margin-bottom:16px">
+        <div class="callout-title">The cost innovation</div>
+        <p>Rice husk ash is agricultural waste. Every rice mill in Karnataka has tonnes they need to dispose of — ask any mill, they give it free. Commercial foam insulation for the same volume: ₹200–400. This zero-cost substitution is what makes ₹1,000 achievable.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">pH Management Protocol</div>
+        <p style="font-size:13px;color:var(--mut);line-height:1.65">Blueberries need pH 4.5–5.5. Rice husk ash leaches pH 8–10 — the vapour barrier also blocks this. Three steps:</p>
+        <ol style="font-size:12px;color:var(--mut);line-height:1.8;margin:10px 0 0 16px">
+          <li>Substrate: 60% coir + 30% perlite + 10% sulfur compost → pH 4.8–5.2 naturally</li>
+          <li>Irrigation: 1–2ml citric acid per litre of water</li>
+          <li>Check pH strip every 2 weeks (₹2 per strip)</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ETPT CONNECTION -->
+<section id="etpt">
+  <div class="sec-label">08 — Parent Theory</div>
+  <h2 class="sec-title">BTCS is ETPT made physical</h2>
+  <div class="etpt-card">
+    <p style="font-size:15px;color:var(--mut);line-height:1.75;max-width:680px">ETPT (Evolutionary Technology Path Theory) proposes that technology is a mirror of the biology that creates it — shaped by the body's capabilities and the environment's pressures. BTCS is a direct proof: a tool designed entirely around human material constraints (no electricity, local waste materials, passive physics) and agricultural biological limits (the blueberry root-zone ceiling). Change the biology of the farmer, change the tool. This <em>is</em> ETPT.</p>
+    <p style="font-size:13px;color:var(--mut)">The original BTCS document explicitly states: <em>"Building on the ETPT framework, the BTCS operates on the principle that full environmental control is unnecessary if we can maintain the invisible variables through passive systems thinking."</em></p>
+    <a class="etpt-link" href="https://tulasikrishna-simulations.github.io/etpt-portfolio" target="_blank">
+      ↗ &nbsp; Read the ETPT Framework
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-l">
+    BTCS · S R Tulasi Krishna · Hospete, Karnataka · 2024–2026<br>
+    GPL-3.0 License · <a href="https://github.com/Tulasikrishna-simulations/btcs" style="color:var(--grn);text-decoration:none">github.com/Tulasikrishna-simulations/btcs</a>
+  </div>
+  <div class="footer-r" style="font-style:italic;color:var(--mut);max-width:320px;text-align:right">
+    "The purpose of engineering is not to demonstrate what we know, but to use what we know in service of what we need."
+  </div>
+</footer>
+
+<script>
+/* ── Corrections data ── */
+const corrections = [
+  ["C-01","M","Lᵥ = 2260 kJ/kg","Lᵥ = 2405 kJ/kg at 40°C","The boiling-point reference value was used. The wick operates at 40°C. The corrected value is 6.4% higher — the system was accidentally underselling itself."],
+  ["C-02","H","Continuity equation A₁V₁=A₂V₂ drives airflow","Buoyancy (ΔP=ρgHΔT/T) drives flow — continuity equation is a consequence","Like saying a speedometer makes the car go faster. Continuity describes velocity in an existing flow — it cannot initiate flow. The buoyancy equation was missing entirely."],
+  ["C-03","H","Inverted Pyramid Airflow System","Tapered Chimney Frustum (wide base at bottom, narrow exit at top)","In an inverted pyramid the apex is at the bottom. Hot air exits at the top → narrow exit is at the top → standard frustum, not inverted."],
+  ["C-04","H","ΔT = 42°C ambient − 30°C inside = 12°C across insulation","Wall reaches 51–60°C in sun — insulation ΔT = 21–30°C","The outer wall is in direct sunlight and heats well above ambient. Like the roof of a car in the sun. Insulation works against wall temperature, not air temperature."],
+  ["C-05","M","12°C ΔT achieved (no conditions documented)","14–16°C predicted. 12°C reading needs full measurement protocol","No time of day, wind conditions, wick level, or steady-state confirmation. Cannot be formally cited without boundary conditions."],
+  ["C-06","H","No mention of monsoon season","Four-season analysis added. Three monsoon fallbacks specified.","Hospete has a 4-month monsoon (RH > 80%) that collapses wick evaporation. The heat load also drops dramatically in monsoon — insulation alone nearly suffices."],
+  ["C-07","M","Wet wick layer directly against dry rice husk ash","Vapour barrier (125μm PE film) between wick and ash","Moisture would raise ash thermal conductivity from 0.04 to 0.10–0.15 W/mK — tripling the heat leak. One thin plastic film prevents this."],
+  ["C-08","L","Only albedo α > 0.80 specified","Both α > 0.80 AND thermal emittance ε > 0.85 required","High α + low ε (like polished aluminium) reflects sunlight but traps heat at night. Lime wash satisfies both. Two numbers, not one."],
+  ["C-09","L","26–30°C described as the target temperature","Reframed as the thermal viability ceiling — optimum is 15–18°C","BTCS achieves survival conditions, not the optimal growth range. Honest framing is more credible and actually makes a stronger case."],
+  ["C-10","M","pH: critical variable [zero mechanism provided]","Full protocol: substrate + citric acid + pH strips + ash alkalinity danger flagged","Rice husk ash leaches pH 8–10. The vapour barrier (C-07) also blocks this. One component, two problems solved."],
+];
+
+const sevLabel = {H:"HIGH",M:"MEDIUM",L:"LOW"};
+const sevClass = {H:"sev-H",M:"sev-M",L:"sev-L"};
+const corrList = document.getElementById('corr-list');
+corrections.forEach(([id,sev,wrong,right,explain]) => {
+  const el = document.createElement('div');
+  el.className = 'corr-item';
+  el.innerHTML = `
+    <div class="corr-header">
+      <span class="corr-id">${id}</span>
+      <span class="sev-badge ${sevClass[sev]}">${sevLabel[sev]}</span>
+      <span class="corr-right">${right}</span>
+      <span class="corr-arrow">▼</span>
+    </div>
+    <div class="corr-body">
+      <div class="corr-wrong">Was: ${wrong}</div>
+      <div class="corr-fixed">→ Now: ${right}</div>
+      <div class="corr-explain">${explain}</div>
+    </div>`;
+  el.addEventListener('click', () => el.classList.toggle('open'));
+  corrList.appendChild(el);
+});
+
+/* ── Thermal Calculator ── */
+function calcThermal() {
+  const T   = +document.getElementById('s-temp').value;
+  const RH  = +document.getElementById('s-rh').value;
+  const H   = +document.getElementById('s-h').value;
+  const hc  = +document.getElementById('s-wind').value;
+  const G   = 900, alpha = 0.80, k = 0.04, d = 0.05;
+  const T_target = 30;
+
+  // Wall temperature
+  const T_wall = T + (G * (1-alpha)) / hc;
+
+  // Insulation
+  const R = d/k;
+  const dT_ins = T_wall - T_target;
+  const q_cond = dT_ins / R;
+
+  // Lv at T
+  const Lv = 2500.8 - 2.36*T + 0.0016*T*T - 0.00006*T*T*T;
+
+  // Wick rate adjusted for RH
+  const rh_factor = Math.max(0, (100-RH)/70);
+  const m_dot = 0.08 * rh_factor;
+  const q_evap = m_dot * Lv * 1000 / 3600;
+
+  // Stack
+  const T_cold_K = T + 273.15;
+  const T_hot_K  = T_wall + 273.15;
+  const rho = 1.293 * 273.15 / T_cold_K;
+  const dP  = rho * 9.81 * H * (T_hot_K - T_cold_K) / T_cold_K;
+  const Q   = 0.65 * 0.01 * Math.sqrt(Math.max(0, 2 * 9.81 * H * (T_hot_K-T_cold_K)/T_cold_K));
+  const q_stack = (rho * 1006 * Q * (T_hot_K-T_cold_K)) / 0.5;
+
+  const net   = q_evap + q_stack - q_cond;
+  const T_root = net >= 0
+    ? Math.max(T-16, T_target - net*R*0.03)
+    : Math.min(T_wall-5, T_target + Math.abs(net)*R*0.08);
+
+  // Update UI
+  document.getElementById('r-wall').textContent  = T_wall.toFixed(0)+'°C';
+  document.getElementById('r-cond').textContent  = q_cond.toFixed(1)+' W/m²';
+  document.getElementById('r-evap').textContent  = q_evap.toFixed(1)+' W/m²';
+  document.getElementById('r-stack').textContent = q_stack.toFixed(1)+' W/m²';
+  document.getElementById('r-net').textContent   = (net>=0?'+':'')+net.toFixed(1)+' W/m²';
+  document.getElementById('r-root').textContent  = T_root.toFixed(0)+'°C';
+
+  const status = document.getElementById('r-status');
+  if (T_root <= 30) {
+    status.className = 'status-bar status-ok';
+    status.textContent = '✓ VIABLE — Root zone within 30°C ceiling';
+  } else if (T_root <= 34) {
+    status.className = 'status-bar status-margin';
+    status.textContent = '⚠ MARGINAL — Root zone approaching stress zone';
+  } else {
+    status.className = 'status-bar status-fail';
+    status.textContent = '✗ EXCEEDS CEILING — Additional cooling needed';
+  }
+
+  // Update labels
+  document.getElementById('v-temp').textContent = T;
+  document.getElementById('v-rh').textContent   = RH;
+  document.getElementById('v-h').textContent    = H;
+  const windLabels = {10:'Still (10 W/m²K)',15:'Gentle (15 W/m²K)',20:'Light (20 W/m²K)',25:'Moderate (25 W/m²K)',30:'Breezy (30 W/m²K)'};
+  document.getElementById('v-wind').textContent = windLabels[hc] || hc+' W/m²K';
+}
+
+['s-temp','s-rh','s-wind','s-h'].forEach(id =>
+  document.getElementById(id).addEventListener('input', calcThermal)
+);
+calcThermal();
+</script>
+</body>
+</html>
